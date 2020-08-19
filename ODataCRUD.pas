@@ -101,7 +101,7 @@ endif.
   endmethod.
   
   
-    method EMPLOYEESETSET_UPDATE_ENTITY.
+     method EMPLOYEESETSET_UPDATE_ENTITY.
 **TRY.
 *CALL METHOD SUPER->EMPLOYEESETSET_UPDATE_ENTITY
 *  EXPORTING
@@ -126,6 +126,18 @@ endif.
 
     update zemployee from ls_data.
 
+    IF SY-SUBRC EQ 0.
+
+      lo_message_container = me->mo_context->get_message_container( ).
+
+      lo_message_container->add_message( iv_msg_type = 'S'
+        iv_msg_id = 'ZZZ'
+        iv_msg_number = 45
+        iv_msg_text = 'DATA UPDATED Successfully'
+        iv_is_leading_message = abap_false
+        iv_add_to_response_header = abap_true
+      ).
+    ENDIF.
 *    if sy-subrc eq 0.
 *      lv_msg_text = 'Data updated successfully'.
 *      CALL METHOD lo_message_container->add_message_text_only
