@@ -159,3 +159,28 @@ endif.
 *
 
   endmethod.
+  
+  
+   method EMPLOYEESETSET_DELETE_ENTITY.
+**TRY.
+*CALL METHOD SUPER->EMPLOYEESETSET_DELETE_ENTITY
+*  EXPORTING
+*    IV_ENTITY_NAME          =
+*    IV_ENTITY_SET_NAME      =
+*    IV_SOURCE_NAME          =
+*    IT_KEY_TAB              =
+**    IO_TECH_REQUEST_CONTEXT =
+*    IT_NAVIGATION_PATH      =
+*    .
+** CATCH /IWBEP/CX_MGW_BUSI_EXCEPTION .
+** CATCH /IWBEP/CX_MGW_TECH_EXCEPTION .
+**ENDTRY.
+    data: ls_key_tab type /IWBEP/S_MGW_NAME_VALUE_PAIR.
+
+    READ TABLE IT_KEY_TAB INDEX 1 INTO LS_KEY_TAB.
+
+
+
+    DELETE from ZEMPLOYEE WHERE NAME = ls_key_tab-value.
+
+  endmethod.
